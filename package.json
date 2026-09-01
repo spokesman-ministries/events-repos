@@ -1,0 +1,17 @@
+{
+  "name": "spokesmancom-events",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:ilcon": "npm run dev -w apps/ilcon-spokesman",
+    "dev:fit": "npm run dev -w apps/fit",
+    "build:ilcon": "npm run build -w apps/ilcon-spokesman",
+    "build:fit": "npm run build -w apps/fit",
+    "build": "npm run build:ilcon && npm run build:fit",
+    "lint:ilcon": "npm run lint -w apps/ilcon-spokesman",
+    "lint:fit": "npm run lint -w apps/fit"
+  }
+}

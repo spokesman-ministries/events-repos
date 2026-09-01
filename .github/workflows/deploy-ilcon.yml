@@ -1,0 +1,47 @@
+name: Deploy · ILCON
+
+# Reusable workflow — builds and deploys apps/ilcon-spokesman.
+on:
+  workflow_call:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: ILCON
+    defaults:
+      run:
+        working-directory: apps/ilcon-spokesman
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: apps/ilcon-spokesman/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        env:
+          NEXT_PUBLIC_BASEURL_URL: ${{ vars.NEXT_PUBLIC_BASEURL_URL }}
+        run: npm run build
+
+      - name: Deploy build via rsync
+        env:
+          HOST: ${{ vars.HOST }}
+          USERNAME: ${{ vars.USERNAME }}
+          PORT: ${{ vars.PORT }}
+          DEPLOY_PATH: 'public_html/ilcon.spokesmancom.org'
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          echo "$SSH_KEY" > /tmp/private_key
+          chmod 600 /tmp/private_key
+          rsync -avz --delete \
+            -e "ssh -i /tmp/private_key -o StrictHostKeyChecking=no -p $PORT" \
+            ./out/ \
+            "$USERNAME@$HOST:~/$DEPLOY_PATH/"

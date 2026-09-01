@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* FIT 2026 brand palette, sampled from the official flyer */
+  --fit-maroon: #4a1620;
+  --fit-red: #e11d2e;
+  --fit-orange: #f26522;
+  --fit-gold: #f5a623;
+  --fit-cream: #fdf1e2;
+  --fit-cream-dark: #f2dfc4;
+
+  /* Bold display stack for headlines (no external font fetch needed) */
+  --font-poppins: "Poppins", "Segoe UI Black", "Arial Black", system-ui, sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Force light rendering on all form controls regardless of browser theme */
+input,
+select,
+textarea {
+  color: #111827 !important;
+  background-color: #ffffff !important;
+  -webkit-text-fill-color: #111827 !important;
+  color-scheme: light only;
+}
+
+/* Fix autofill background flicker in Chrome/Brave */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #111827 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+select option {
+  color: #111827 !important;
+  background-color: #ffffff !important;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+}
