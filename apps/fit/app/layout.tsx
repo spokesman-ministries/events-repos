@@ -6,7 +6,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fit.spokesmancom.o
 const TITLE =
   "FIT 2026 | SSOH Lagos FIT-5 Annual Leadership Conference | Spokesmancom FIT 2026";
 const DESCRIPTION =
-  "Register for FIT 2026 — Spokesmancom FIT 2026, the SSOH Lagos FIT-5 Annual Leadership Conference: 'FIT and Fired for Exploits' (Daniel 11:32). Sat 26th - Sun 27th September 2026 at Lakehamm Residence, GRA, Ikeja, Lagos, with keynote speaker Rev. Prof. Gregory Efosa Erhabor. Reserve your seat now.";
+  "Register for FIT 2026 — Spokesmancom FIT 2026, the SSOH Lagos FIT-5 Annual Leadership Conference: 'FIT and Fired for Exploits' (Daniel 11:32). Sat 26th - Sun 27th September 2026 at Lakehamm Residence, GRA, Ikeja, Lagos, with keynote speaker Rev. Prof. Gregory Efosa Erhabor. Reserve your seat now!";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
