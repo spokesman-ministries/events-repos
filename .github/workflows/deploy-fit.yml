@@ -37,7 +37,7 @@ jobs:
           HOST: ${{ vars.HOST }}
           USERNAME: ${{ vars.USERNAME }}
           PORT: ${{ vars.PORT }}
-          DEPLOY_PATH: '/fit.spokesmancom.org'
+          DEPLOY_PATH: 'fit.spokesmancom.org'
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           echo "$SSH_KEY" > /tmp/private_key
