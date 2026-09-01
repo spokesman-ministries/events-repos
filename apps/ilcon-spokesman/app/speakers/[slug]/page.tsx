@@ -11,7 +11,7 @@ export async function generateStaticParams() {
 
 // Params is a Promise in newer Next.js versions
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params; // Destructure after awaiting
+  const { slug } = await params; // Destructure after awaiting.
   
   const speaker = eventData.speakers.find(s => s.slug === slug);
 
