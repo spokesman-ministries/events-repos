@@ -28,8 +28,8 @@ jobs:
 
       - name: Build static site
         env:
-          NEXT_PUBLIC_BASEURL_URL: ${{ vars.NEXT_PUBLIC_BASEURL_URL_FIT }}
-          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL_FIT }}
+          NEXT_PUBLIC_BASEURL_URL: ${{ vars.NEXT_PUBLIC_BASEURL_URL }}
+          NEXT_PUBLIC_SITE_URL: "https://fit.spokesmancom.org"
         run: npm run build
 
       - name: Deploy build via rsync
@@ -37,7 +37,7 @@ jobs:
           HOST: ${{ vars.HOST }}
           USERNAME: ${{ vars.USERNAME }}
           PORT: ${{ vars.PORT }}
-          DEPLOY_PATH: 'public_html/fit.spokesmancom.org'
+          DEPLOY_PATH: '/fit.spokesmancom.org'
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           echo "$SSH_KEY" > /tmp/private_key

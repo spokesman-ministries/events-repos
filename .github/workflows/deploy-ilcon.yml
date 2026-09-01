@@ -36,7 +36,7 @@ jobs:
           HOST: ${{ vars.HOST }}
           USERNAME: ${{ vars.USERNAME }}
           PORT: ${{ vars.PORT }}
-          DEPLOY_PATH: 'public_html/ilcon.spokesmancom.org'
+          DEPLOY_PATH: 'public_html/website_c43a4bbf'
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           echo "$SSH_KEY" > /tmp/private_key

@@ -1,0 +1,58 @@
+name: Deploy
+
+# Central router workflow. Detects changes and triggers app-specific deployments.
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      site:
+        description: 'Force a deploy regardless of changed paths'
+        type: choice
+        default: auto
+        options:
+          - auto
+          - all
+          - ilcon
+          - fit
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      ilcon: ${{ steps.filter.outputs.ilcon }}
+      fit: ${{ steps.filter.outputs.fit }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            ilcon:
+              - 'apps/ilcon-spokesman/**'
+            fit:
+              - 'apps/fit/**'
+
+  deploy-ilcon:
+    name: Deploy ILCON
+    needs: detect-changes
+    if: >-
+      needs.detect-changes.outputs.ilcon == 'true' ||
+      github.event.inputs.site == 'all' ||
+      github.event.inputs.site == 'ilcon'
+    uses: ./.github/workflows/deploy-ilcon.yml
+    secrets: inherit
+
+  deploy-fit:
+    name: Deploy FIT
+    needs: detect-changes
+    if: >-
+      needs.detect-changes.outputs.fit == 'true' ||
+      github.event.inputs.site == 'all' ||
+      github.event.inputs.site == 'fit'
+    uses: ./.github/workflows/deploy-fit.yml
+    secrets: inherit
