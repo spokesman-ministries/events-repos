@@ -30,7 +30,7 @@ jobs:
         env:
           NEXT_PUBLIC_BASEURL_URL: ${{ vars.NEXT_PUBLIC_BASEURL_URL }}
           NEXT_PUBLIC_SITE_URL: "https://fit.spokesmancom.org"
-        run: npm run build
+        run: npm run build:fit
 
       - name: Deploy build via rsync
         env:

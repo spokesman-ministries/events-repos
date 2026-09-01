@@ -29,7 +29,7 @@ jobs:
       - name: Build static site
         env:
           NEXT_PUBLIC_BASEURL_URL: ${{ vars.NEXT_PUBLIC_BASEURL_URL }}
-        run: npm run build
+        run: npm run build:ilcon
 
       - name: Deploy build via rsync
         env:
