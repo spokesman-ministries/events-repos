@@ -8,9 +8,6 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     environment: FIT
-    defaults:
-      run:
-        working-directory: apps/fit
 
     steps:
       - name: Checkout code
@@ -21,7 +18,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: apps/fit/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -33,6 +30,7 @@ jobs:
         run: npm run build:fit
 
       - name: Deploy build via rsync
+        working-directory: apps/fit
         env:
           HOST: ${{ vars.HOST }}
           USERNAME: ${{ vars.USERNAME }}
@@ -46,3 +44,7 @@ jobs:
             -e "ssh -i /tmp/private_key -o StrictHostKeyChecking=no -p $PORT" \
             ./out/ \
             "$USERNAME@$HOST:~/$DEPLOY_PATH/"
+
+      - name: Clean up SSH key
+        if: always()
+        run: rm -f /tmp/private_key
